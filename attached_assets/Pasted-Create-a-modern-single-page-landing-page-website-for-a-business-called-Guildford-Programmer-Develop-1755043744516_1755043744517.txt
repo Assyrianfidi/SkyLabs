@@ -1,0 +1,72 @@
+Create a modern, single-page landing page website for a business called Guildford Programmer Developer.
+The company specializes in programming, web development, app creation, and custom software solutions for clients from Abbotsford to Vancouver. The design should be clean, professional, and high-tech with a focus on showcasing services, expertise, and a strong call to action.
+
+1. Header Section
+
+Company logo (stylized modern tech font, minimalistic icon such as code brackets { } or a circuit board theme).
+
+Navigation menu (scrolls to different sections of the page): Home, Services, Portfolio, About, Contact.
+
+Hero headline: "Your Vision, Our Code — Building Digital Solutions That Work"
+
+Subheading: "Expert website, app, and software development serving the Lower Mainland"
+
+Prominent call-to-action button: "Get a Free Quote" (scrolls to Contact form).
+
+Background: sleek abstract tech shapes or gradient with subtle animations.
+
+2. Services Section
+Title: "Our Expertise"
+Four main service boxes with icons:
+
+Web Development – Custom, responsive, and SEO-friendly websites.
+
+Mobile App Development – Android & iOS app creation from concept to launch.
+
+Custom Software Solutions – Tailored tools and platforms for businesses.
+
+E-commerce Development – Scalable online stores with payment integration.
+
+Each service box should have a short description and a "Learn More" link (opens a modal or scrolls to contact).
+
+3. Portfolio/Showcase Section
+
+Title: "Our Work in Action"
+
+Showcase 4–6 example projects with images/screenshots, short descriptions, and project results.
+
+Animated hover effects for interactivity.
+
+4. About Us Section
+
+Title: "Who We Are"
+
+Short paragraph about the company: "Guildford Programmer Developer is your trusted technology partner, delivering innovative solutions for businesses across the Lower Mainland. We pride ourselves on coding excellence, creative design, and results-driven projects."
+
+Optional small team photo or tech workspace image.
+
+5. Contact/CTA Section
+
+Title: "Let’s Build Something Amazing"
+
+Contact form (Name, Email, Phone, Message) with submit button.
+
+Company contact info: phone, email, and location (Surrey, BC).
+
+Small Google Maps embed showing Surrey location.
+
+6. Footer
+
+Minimal design with copyright: © 2025 Guildford Programmer Developer. All rights reserved.
+
+Social media icons: LinkedIn, GitHub, Facebook, Instagram.
+
+Style Guidelines:
+
+Color scheme: deep navy blue, tech blue gradients, white, and electric cyan accents.
+
+Font: modern sans-serif like Poppins or Montserrat.
+
+Layout: responsive design optimized for desktop, tablet, and mobile.
+
+Include smooth scrolling animations and fade-in effects for sections.
