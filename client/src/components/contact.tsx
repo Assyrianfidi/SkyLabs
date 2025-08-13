@@ -47,6 +47,14 @@ export default function Contact() {
   });
 
   const onSubmit = (data: InsertContact) => {
+    // Track form submission event
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'form_submit', {
+        event_category: 'Contact',
+        event_label: 'Contact Form Submission',
+        value: 1
+      });
+    }
     contactMutation.mutate(data);
   };
 
@@ -109,6 +117,7 @@ export default function Contact() {
                           <Input
                             type="tel"
                             {...field}
+                            value={field.value || ""}
                             className="border-gray-300 focus:ring-electric-cyan focus:border-electric-cyan"
                           />
                         </FormControl>
