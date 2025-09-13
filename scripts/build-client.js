@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const { build } = require('vite');
+import { build } from 'vite';
 
 async function main() {
   try {
