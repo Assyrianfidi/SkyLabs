@@ -53,6 +53,7 @@
     "test:prod": "node --experimental-specifier-resolution=node scripts/test-production.js"
   },
   "dependencies": {
+    "cross-env": "^10.0.0",
     "@hookform/resolvers": "^3.10.0",
     "@jridgewell/trace-mapping": "^0.3.25",
     "@neondatabase/serverless": "^0.10.4",
@@ -156,7 +157,6 @@
     "axios": "^1.11.0",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
-    "cross-env": "^10.0.0",
     "dotenv": "^16.6.1",
     "dotenv-cli": "^7.4.4",
     "drizzle-kit": "^0.30.4",
