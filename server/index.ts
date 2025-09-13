@@ -5,9 +5,11 @@ import rateLimit from 'express-rate-limit';
 import { registerRoutes } from "./routes.js";
 import { setupVite, serveStatic, log } from "./vite.js";
 import { initializeDatabase } from "./db/index.js";
-import { logError } from "./utils/errorLogger.js";
+import { logError, logger } from "./utils/errorLogger.js";
 // Error types are globally declared in ./types/error.d.ts
 import { databaseMonitor } from "./services/databaseMonitor.js";
+import { securityHeaders, loginLimiter, enforceHTTPS } from "./middleware/securityMiddleware.js";
+import cspReportRouter from './routes/cspReport.js';
 
 // Initialize database monitoring
 async function initializeApp() {
@@ -39,37 +41,116 @@ initializeApp();
 
 const app = express();
 
-// Security middleware
-app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-      imgSrc: ["'self'", "data:", "https: http:"],
-      connectSrc: ["'self'", process.env.CORS_ORIGIN || 'http://localhost:3000'],
-    },
+// CORS configuration must come before other middleware
+const allowedOrigins = [
+  'http://localhost:3001',
+  'http://127.0.0.1:3001',
+  'http://localhost:5173',
+  'http://127.0.0.1:5173',
+  'https://skylabs.tech',
+  'https://skylabs-1.onrender.com'
+];
+
+// Add any additional origins from environment variable
+if (process.env.CORS_ORIGINS) {
+  allowedOrigins.push(...process.env.CORS_ORIGINS.split(','));
+}
+
+const corsOptions = {
+  origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    // Allow all subdomains of onrender.com in production
+    if (process.env.NODE_ENV === 'production' && origin.endsWith('.onrender.com')) {
+      return callback(null, true);
+    }
+    
+    // Allow explicitly listed origins
+    if (allowedOrigins.includes(origin) || process.env.NODE_ENV === 'development') {
+      return callback(null, true);
+    }
+    
+    console.warn(`Blocked by CORS: ${origin}`);
+    callback(new Error('Not allowed by CORS'));
   },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  allowedHeaders: [
+    'Content-Type', 
+    'Authorization', 
+    'X-Requested-With', 
+    'X-Content-Type-Options',
+    'Origin',
+    'Accept',
+    'Accept-Version',
+    'Content-Length',
+    'Content-MD5',
+    'Date',
+    'X-Api-Version'
+  ],
+  exposedHeaders: [
+    'Content-Length', 
+    'X-Content-Length',
+    'X-RateLimit-Limit',
+    'X-RateLimit-Remaining',
+    'X-RateLimit-Reset'
+  ],
+  maxAge: 86400, // 24 hours
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+};
+
+// Apply CORS with the above options
+app.use(cors(corsOptions));
+
+// Handle preflight requests
+app.options('*', cors(corsOptions));
+
+// Add headers before the routes are defined
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (origin && allowedOrigins.includes(origin as string)) {
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  }
+  next();
+});
+
+// Apply security middleware
+app.use(securityHeaders);
+
+// CSP report endpoint
+app.use('/csp-report', express.json({ type: ['json', 'application/csp-report'] }), cspReportRouter);
+
+// Security headers with Helmet
+app.use(helmet({
   crossOriginEmbedderPolicy: false,
+  crossOriginOpenerPolicy: false,
+  crossOriginResourcePolicy: { policy: 'cross-origin' }, // Changed to allow cross-origin
+  originAgentCluster: true,
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  strictTransportSecurity: process.env.NODE_ENV === 'production' ? {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true,
+  } : false, // Disable HSTS in development
 }));
 
 // Rate limiting
 const limiter = rateLimit({
-  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS || '900000', 10), // 15 minutes
-  max: parseInt(process.env.RATE_LIMIT_MAX || '100', 10), // limit each IP to 100 requests per windowMs
-  message: 'Too many requests from this IP, please try again later',
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: process.env.NODE_ENV === 'production' ? 100 : 1000, // More lenient in development
+  message: JSON.stringify({ 
+    success: false, 
+    error: 'Too many requests from this IP, please try again after 15 minutes' 
+  })
 });
 
-// Apply rate limiting to all requests
-app.use(limiter);
-
-// Enable CORS
-app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
-}));
+// Apply rate limiting to API routes
+app.use('/api', limiter);
 
 // Body parsing
 app.use(express.json({ limit: '10kb' }));
@@ -153,7 +234,7 @@ app.use((req, res, next) => {
   }
 
   // Start the server
-  const port = process.env.PORT ? parseInt(process.env.PORT) : 3001;
+  const port = process.env.PORT ? parseInt(process.env.PORT) : 3002;
   
   server.listen(port, '0.0.0.0', () => {
     console.log(`🚀 Server running at http://localhost:${port}`);
