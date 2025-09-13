@@ -10,7 +10,7 @@
     "dev": "cross-env NODE_ENV=development tsx server/index.ts",
     "build": "npm run build:client && npm run build:server",
     "build:client": "node scripts/build-client.js",
-    "build:server": "node node_modules/esbuild/bin/esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist --minify",
+    "build:server": "node node_modules/esbuild/bin/esbuild.js server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist --minify",
     "start": "cross-env NODE_ENV=production node dist/index.js",
     "start:prod": "cross-env NODE_ENV=production pm2 start dist/index.js --name skylabs --time --update-env",
     "stop:prod": "pm2 delete skylabs",
