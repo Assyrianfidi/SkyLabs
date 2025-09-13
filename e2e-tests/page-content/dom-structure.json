@@ -1,0 +1,92 @@
+[
+  {
+    "tag": "DIV",
+    "id": "root",
+    "class": null,
+    "text": "404 Page Not FoundDid you forget to add the page to the router?"
+  },
+  {
+    "tag": "DIV",
+    "id": null,
+    "class": null,
+    "text": null
+  },
+  {
+    "tag": "OL",
+    "id": null,
+    "class": "fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]",
+    "text": null
+  },
+  {
+    "tag": "DIV",
+    "id": null,
+    "class": "min-h-screen w-full flex items-center justify-center bg-gray-50",
+    "text": "404 Page Not FoundDid you forget to add the page to the router?"
+  },
+  {
+    "tag": "DIV",
+    "id": null,
+    "class": "rounded-lg border bg-card text-card-foreground shadow-sm w-full max-w-md mx-4",
+    "text": "404 Page Not FoundDid you forget to add the page to the router?"
+  },
+  {
+    "tag": "DIV",
+    "id": null,
+    "class": "p-6 pt-6",
+    "text": "404 Page Not FoundDid you forget to add the page to the router?"
+  },
+  {
+    "tag": "DIV",
+    "id": null,
+    "class": "flex mb-4 gap-2",
+    "text": "404 Page Not Found"
+  },
+  {
+    "tag": "svg",
+    "id": null,
+    "class": "[object SVGAnimatedString]",
+    "text": null
+  },
+  {
+    "tag": "circle",
+    "id": null,
+    "class": "[object SVGAnimatedString]",
+    "text": null
+  },
+  {
+    "tag": "line",
+    "id": null,
+    "class": "[object SVGAnimatedString]",
+    "text": null
+  },
+  {
+    "tag": "line",
+    "id": null,
+    "class": "[object SVGAnimatedString]",
+    "text": null
+  },
+  {
+    "tag": "H1",
+    "id": null,
+    "class": "text-2xl font-bold text-gray-900",
+    "text": "404 Page Not Found"
+  },
+  {
+    "tag": "P",
+    "id": null,
+    "class": "mt-4 text-sm text-gray-600",
+    "text": "Did you forget to add the page to the router?"
+  },
+  {
+    "tag": "SCRIPT",
+    "id": null,
+    "class": null,
+    "text": null
+  },
+  {
+    "tag": "SCRIPT",
+    "id": null,
+    "class": null,
+    "text": null
+  }
+]

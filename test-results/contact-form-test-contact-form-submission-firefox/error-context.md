@@ -1,0 +1,185 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - navigation [ref=e5]:
+        - generic [ref=e6]:
+          - link "SkyLabs Logo SkyLabs" [ref=e8] [cursor=pointer]:
+            - /url: /
+            - img "SkyLabs Logo" [ref=e9] [cursor=pointer]
+            - generic [ref=e10] [cursor=pointer]: SkyLabs
+          - list [ref=e11]:
+            - listitem [ref=e12]:
+              - button "Home" [ref=e13] [cursor=pointer]
+            - listitem [ref=e14]:
+              - button "Services" [ref=e15] [cursor=pointer]
+            - listitem [ref=e16]:
+              - button "Portfolio" [ref=e17] [cursor=pointer]
+            - listitem [ref=e18]:
+              - button "About" [ref=e19] [cursor=pointer]
+            - listitem [ref=e20]:
+              - button "Contact" [ref=e21] [cursor=pointer]
+    - generic [ref=e24]:
+      - img [ref=e27]
+      - heading "Your Vision, Our Code" [level=1] [ref=e29]
+      - heading "Building Digital Solutions That Work" [level=2] [ref=e30]
+      - paragraph [ref=e31]: Expert website, app, and software development serving the Lower Mainland
+      - button "Get a Free Quote" [ref=e32] [cursor=pointer]
+    - generic [ref=e34]:
+      - generic [ref=e35]:
+        - heading "Our Expertise" [level=2] [ref=e36]
+        - paragraph [ref=e37]: Comprehensive digital solutions for your business needs
+      - generic [ref=e38]:
+        - generic [ref=e40]:
+          - img [ref=e42]
+          - heading "Web Development" [level=3] [ref=e46]
+          - paragraph [ref=e47]: Custom, responsive, and SEO-friendly websites that drive results and engage your audience.
+          - button "Learn More →" [ref=e48] [cursor=pointer]
+        - generic [ref=e50]:
+          - img [ref=e52]
+          - heading "Mobile App Development" [level=3] [ref=e55]
+          - paragraph [ref=e56]: Android & iOS app creation from concept to launch, delivering exceptional user experiences.
+          - button "Learn More →" [ref=e57] [cursor=pointer]
+        - generic [ref=e59]:
+          - img [ref=e61]
+          - heading "Custom Software Solutions" [level=3] [ref=e64]
+          - paragraph [ref=e65]: Tailored tools and platforms designed specifically for your business processes and goals.
+          - button "Learn More →" [ref=e66] [cursor=pointer]
+        - generic [ref=e68]:
+          - img [ref=e70]
+          - heading "E-commerce Development" [level=3] [ref=e74]
+          - paragraph [ref=e75]: Scalable online stores with secure payment integration and inventory management systems.
+          - button "Learn More →" [ref=e76] [cursor=pointer]
+    - generic [ref=e78]:
+      - generic [ref=e79]:
+        - heading "Our Work in Action" [level=2] [ref=e80]
+        - paragraph [ref=e81]: Showcasing successful projects and client transformations
+      - generic [ref=e82]:
+        - generic [ref=e84] [cursor=pointer]:
+          - img "E-commerce dashboard analytics" [ref=e86] [cursor=pointer]
+          - generic [ref=e87] [cursor=pointer]:
+            - heading "Vancouver Retail Solutions" [level=3] [ref=e88] [cursor=pointer]
+            - paragraph [ref=e89] [cursor=pointer]: Complete e-commerce platform with inventory management, resulting in 300% increase in online sales.
+            - generic [ref=e90] [cursor=pointer]:
+              - generic [ref=e91] [cursor=pointer]: View Project
+              - img [ref=e92] [cursor=pointer]
+        - generic [ref=e96] [cursor=pointer]:
+          - img "Mobile app interface design" [ref=e98] [cursor=pointer]
+          - generic [ref=e99] [cursor=pointer]:
+            - heading "HealthTracker Mobile App" [level=3] [ref=e100] [cursor=pointer]
+            - paragraph [ref=e101] [cursor=pointer]: iOS and Android fitness tracking app with 50,000+ downloads and 4.8-star rating.
+            - generic [ref=e102] [cursor=pointer]:
+              - generic [ref=e103] [cursor=pointer]: View Project
+              - img [ref=e104] [cursor=pointer]
+        - generic [ref=e108] [cursor=pointer]:
+          - img "Corporate website design" [ref=e110] [cursor=pointer]
+          - generic [ref=e111] [cursor=pointer]:
+            - heading "Burnaby Tech Consulting" [level=3] [ref=e112] [cursor=pointer]
+            - paragraph [ref=e113] [cursor=pointer]: Professional corporate website with integrated CRM, improving lead generation by 250%.
+            - generic [ref=e114] [cursor=pointer]:
+              - generic [ref=e115] [cursor=pointer]: View Project
+              - img [ref=e116] [cursor=pointer]
+        - generic [ref=e120] [cursor=pointer]:
+          - img "Software dashboard analytics" [ref=e122] [cursor=pointer]
+          - generic [ref=e123] [cursor=pointer]:
+            - heading "Richmond Manufacturing CRM" [level=3] [ref=e124] [cursor=pointer]
+            - paragraph [ref=e125] [cursor=pointer]: Custom inventory and client management system, reducing operational costs by 40%.
+            - generic [ref=e126] [cursor=pointer]:
+              - generic [ref=e127] [cursor=pointer]: View Project
+              - img [ref=e128] [cursor=pointer]
+        - generic [ref=e132] [cursor=pointer]:
+          - img "Restaurant ordering app" [ref=e134] [cursor=pointer]
+          - generic [ref=e135] [cursor=pointer]:
+            - heading "Surrey Dining App" [level=3] [ref=e136] [cursor=pointer]
+            - paragraph [ref=e137] [cursor=pointer]: Food delivery platform connecting 200+ local restaurants with integrated payment processing.
+            - generic [ref=e138] [cursor=pointer]:
+              - generic [ref=e139] [cursor=pointer]: View Project
+              - img [ref=e140] [cursor=pointer]
+        - generic [ref=e144] [cursor=pointer]:
+          - img "Educational learning platform" [ref=e146] [cursor=pointer]
+          - generic [ref=e147] [cursor=pointer]:
+            - heading "EdTech Learning Platform" [level=3] [ref=e148] [cursor=pointer]
+            - paragraph [ref=e149] [cursor=pointer]: Interactive online learning system serving 10,000+ students with progress tracking.
+            - generic [ref=e150] [cursor=pointer]:
+              - generic [ref=e151] [cursor=pointer]: View Project
+              - img [ref=e152] [cursor=pointer]
+    - generic [ref=e157]:
+      - generic [ref=e158]:
+        - heading "Who We Are" [level=2] [ref=e159]
+        - paragraph [ref=e160]: Guildford Programmer Developer is your trusted technology partner, delivering innovative solutions for businesses across the Lower Mainland. We pride ourselves on coding excellence, creative design, and results-driven projects.
+        - paragraph [ref=e161]: Our team combines technical expertise with creative problem-solving to build digital solutions that not only meet your current needs but scale with your future growth. From startups to established enterprises, we've helped businesses transform their digital presence.
+        - generic [ref=e162]:
+          - generic [ref=e163]:
+            - generic [ref=e164]: 100+
+            - generic [ref=e165]: Projects Completed
+          - generic [ref=e166]:
+            - generic [ref=e167]: 5+
+            - generic [ref=e168]: Years Experience
+      - img "Modern development workspace" [ref=e170]
+    - generic [ref=e173]:
+      - heading "Contact Us" [level=1] [ref=e174]
+      - generic [ref=e175]:
+        - generic [ref=e178]:
+          - generic [ref=e179]:
+            - generic [ref=e180]:
+              - text: Name
+              - generic [ref=e181]: "*"
+            - textbox "Your name" [ref=e182]
+          - generic [ref=e183]:
+            - generic [ref=e184]:
+              - text: Email
+              - generic [ref=e185]: "*"
+            - textbox "your.email@example.com" [ref=e186]
+          - generic [ref=e187]:
+            - generic [ref=e188]: Phone
+            - textbox "(123) 456-7890" [ref=e189]
+          - generic [ref=e190]:
+            - generic [ref=e191]:
+              - text: Message
+              - generic [ref=e192]: "*"
+            - textbox "Your message" [ref=e193]
+          - button "Send Message" [ref=e194] [cursor=pointer]
+        - generic [ref=e196]:
+          - heading "Get in Touch" [level=2] [ref=e197]
+          - paragraph [ref=e198]: Have questions or want to discuss a project? Fill out the form or reach out to us directly.
+          - generic [ref=e199]:
+            - generic [ref=e200]:
+              - img [ref=e202]
+              - generic [ref=e205]:
+                - heading "Email" [level=3] [ref=e206]
+                - link "fidi.amazon@gmail.com" [ref=e207] [cursor=pointer]:
+                  - /url: mailto:fidi.amazon@gmail.com
+            - generic [ref=e208]:
+              - img [ref=e210]
+              - generic [ref=e212]:
+                - heading "Phone" [level=3] [ref=e213]
+                - link "+1 (555) 123-4567" [ref=e214] [cursor=pointer]:
+                  - /url: tel:+1234567890
+            - generic [ref=e215]:
+              - img [ref=e217]
+              - generic [ref=e220]:
+                - heading "Location" [level=3] [ref=e221]
+                - paragraph [ref=e222]:
+                  - text: 123 Business Ave, Suite 100
+                  - text: San Francisco, CA 94107
+    - contentinfo [ref=e223]:
+      - generic [ref=e225]:
+        - paragraph [ref=e227]: © 2025 SkyLabs. All rights reserved.
+        - generic [ref=e228]:
+          - link "LinkedIn" [ref=e229] [cursor=pointer]:
+            - /url: "#"
+            - img [ref=e230] [cursor=pointer]
+          - link "GitHub" [ref=e234] [cursor=pointer]:
+            - /url: "#"
+            - img [ref=e235] [cursor=pointer]
+          - link "Facebook" [ref=e238] [cursor=pointer]:
+            - /url: "#"
+            - img [ref=e239] [cursor=pointer]
+          - link "Instagram" [ref=e241] [cursor=pointer]:
+            - /url: "#"
+            - img [ref=e242] [cursor=pointer]
+```

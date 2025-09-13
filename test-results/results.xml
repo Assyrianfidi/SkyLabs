@@ -1,0 +1,101 @@
+<testsuites id="" name="" tests="3" failures="3" skipped="0" errors="0" time="108.226059">
+<testsuite name="contact-form-test.spec.ts" timestamp="2025-09-12T18:20:27.936Z" hostname="chromium" tests="1" failures="1" skipped="0" time="30.297" errors="0">
+<testcase name="contact form submission" classname="contact-form-test.spec.ts" time="30.297">
+<failure message="contact-form-test.spec.ts:6:1 contact form submission" type="FAILURE">
+<![CDATA[  [chromium] › contact-form-test.spec.ts:6:1 › contact form submission ─────────────────────────────
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.fill: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('form').getByLabel(/name/i)
+
+
+      21 |   // Fill out the form
+      22 |   console.log('Filling out the contact form...');
+    > 23 |   await contactForm.getByLabel(/name/i).fill('Test User');
+         |                                         ^
+      24 |   await contactForm.getByLabel(/email/i).fill('test@example.com');
+      25 |   await contactForm.getByLabel(/phone/i).fill('(123) 456-7890');
+      26 |   await contactForm.getByLabel(/message/i).fill('This is a test message from Playwright');
+        at C:\Users\FIDI\Documents\Business's_Ready4Deployment\SkyLabs\SkyLabs\e2e-tests\contact-form-test.spec.ts:23:41
+
+    Error Context: ..\test-results\contact-form-test-contact-form-submission-chromium\error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[Navigating to http://localhost:3000
+Filling out the contact form...
+
+[[ATTACHMENT|contact-form-test-contact-form-submission-chromium\error-context.md]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="contact-form-test.spec.ts" timestamp="2025-09-12T18:20:27.936Z" hostname="firefox" tests="1" failures="1" skipped="0" time="30.366" errors="0">
+<testcase name="contact form submission" classname="contact-form-test.spec.ts" time="30.366">
+<failure message="contact-form-test.spec.ts:6:1 contact form submission" type="FAILURE">
+<![CDATA[  [firefox] › contact-form-test.spec.ts:6:1 › contact form submission ──────────────────────────────
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.fill: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('form').getByLabel(/name/i)
+
+
+      21 |   // Fill out the form
+      22 |   console.log('Filling out the contact form...');
+    > 23 |   await contactForm.getByLabel(/name/i).fill('Test User');
+         |                                         ^
+      24 |   await contactForm.getByLabel(/email/i).fill('test@example.com');
+      25 |   await contactForm.getByLabel(/phone/i).fill('(123) 456-7890');
+      26 |   await contactForm.getByLabel(/message/i).fill('This is a test message from Playwright');
+        at C:\Users\FIDI\Documents\Business's_Ready4Deployment\SkyLabs\SkyLabs\e2e-tests\contact-form-test.spec.ts:23:41
+
+    Error Context: ..\test-results\contact-form-test-contact-form-submission-firefox\error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[Navigating to http://localhost:3000
+Filling out the contact form...
+
+[[ATTACHMENT|contact-form-test-contact-form-submission-firefox\error-context.md]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="contact-form-test.spec.ts" timestamp="2025-09-12T18:20:27.936Z" hostname="webkit" tests="1" failures="1" skipped="0" time="30.244" errors="0">
+<testcase name="contact form submission" classname="contact-form-test.spec.ts" time="30.244">
+<failure message="contact-form-test.spec.ts:6:1 contact form submission" type="FAILURE">
+<![CDATA[  [webkit] › contact-form-test.spec.ts:6:1 › contact form submission ───────────────────────────────
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.fill: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('form').getByLabel(/name/i)
+
+
+      21 |   // Fill out the form
+      22 |   console.log('Filling out the contact form...');
+    > 23 |   await contactForm.getByLabel(/name/i).fill('Test User');
+         |                                         ^
+      24 |   await contactForm.getByLabel(/email/i).fill('test@example.com');
+      25 |   await contactForm.getByLabel(/phone/i).fill('(123) 456-7890');
+      26 |   await contactForm.getByLabel(/message/i).fill('This is a test message from Playwright');
+        at C:\Users\FIDI\Documents\Business's_Ready4Deployment\SkyLabs\SkyLabs\e2e-tests\contact-form-test.spec.ts:23:41
+
+    Error Context: ..\test-results\contact-form-test-contact-form-submission-webkit\error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[Navigating to http://localhost:3000
+Filling out the contact form...
+
+[[ATTACHMENT|contact-form-test-contact-form-submission-webkit\error-context.md]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { Code, Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Menu, X } from "lucide-react";
+// Import button component with explicit .tsx extension
+import { Button } from "./ui/button.tsx";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -30,14 +31,20 @@ export default function Header() {
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center space-x-3">
-            <div className="bg-gradient-to-r from-tech-blue to-electric-cyan p-2 rounded-lg">
-              <Code className="text-white text-xl" />
-            </div>
-            <div>
-              <h1 className="text-xl font-bold text-navy">Guildford Programmer</h1>
-              <p className="text-sm text-medium-gray">Developer</p>
-            </div>
+          <div className="flex items-center">
+            <a href="/" className="flex items-center space-x-2">
+              <img 
+                src="/assets/images/logo.png" 
+                alt="SkyLabs Logo" 
+                className="h-10 w-auto sm:h-12 transition-all duration-300 hover:opacity-90"
+                width={160}
+                height={48}
+                loading="eager"
+              />
+              <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+                SkyLabs
+              </span>
+            </a>
           </div>
           
           {/* Desktop Navigation */}

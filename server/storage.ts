@@ -1,5 +1,6 @@
-import { type User, type InsertUser, type Contact, type InsertContact } from "@shared/schema";
-import { randomUUID } from "crypto";
+import { and, eq } from 'drizzle-orm';
+import { db } from './db';
+import { users, contacts, type InsertUser, type User, type InsertContact, type Contact } from '@shared/schema';
 
 export interface IStorage {
   getUser(id: string): Promise<User | undefined>;
@@ -9,49 +10,36 @@ export interface IStorage {
   getContacts(): Promise<Contact[]>;
 }
 
-export class MemStorage implements IStorage {
-  private users: Map<string, User>;
-  private contacts: Map<string, Contact>;
-
-  constructor() {
-    this.users = new Map();
-    this.contacts = new Map();
-  }
-
+export class DBStorage implements IStorage {
   async getUser(id: string): Promise<User | undefined> {
-    return this.users.get(id);
+    const result = await db.select().from(users).where(eq(users.id, id));
+    return result[0];
   }
 
   async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
+    const result = await db.select().from(users).where(eq(users.username, username));
+    return result[0];
   }
 
   async createUser(insertUser: InsertUser): Promise<User> {
-    const id = randomUUID();
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
-    return user;
+    const result = await db.insert(users).values(insertUser).returning();
+    return result[0];
   }
 
   async createContact(insertContact: InsertContact): Promise<Contact> {
-    const id = randomUUID();
-    const contact: Contact = { 
-      ...insertContact, 
-      id,
+    const result = await db.insert(contacts).values({
+      ...insertContact,
       phone: insertContact.phone ?? null,
       createdAt: new Date()
-    };
-    this.contacts.set(id, contact);
-    return contact;
+    }).returning();
+    
+    return result[0];
   }
 
   async getContacts(): Promise<Contact[]> {
-    return Array.from(this.contacts.values()).sort(
-      (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
-    );
+    return await db.select().from(contacts).orderBy(contacts.createdAt, { desc: true });
   }
 }
 
-export const storage = new MemStorage();
+// Export a singleton instance of the database storage
+export const storage = new DBStorage();

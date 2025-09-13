@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="text-white mb-6 md:mb-0">
-            <p>&copy; 2025 Guildford Programmer Developer. All rights reserved.</p>
+            <p>&copy; 2025 SkyLabs. All rights reserved.</p>
           </div>
           <div className="flex space-x-6">
             <a

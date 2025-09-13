@@ -41,6 +41,9 @@
   --font-mono: Menlo, monospace;
   --radius: 1rem;
   
+  /* Background image */
+  --bg-image: url('/skylabs-background.png');
+  
   /* Custom colors from design */
   --navy: hsl(222 47% 11%);
   --tech-blue: hsl(222 89% 37%);
@@ -103,13 +106,52 @@
   }
 }
 
+/* Body background styles */
+body {
+  min-height: 100vh;
+  background-image: url('/assets/images/background.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: #000;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  z-index: -1;
+}
+
 @layer utilities {
   .gradient-bg {
-    background: linear-gradient(135deg, hsl(222 47% 11%) 0%, hsl(222 89% 37%) 100%);
+    background: linear-gradient(135deg, rgba(17, 24, 39, 0.95) 0%, rgba(30, 58, 138, 0.9) 100%),
+                url('/assets/images/background.png') no-repeat center center fixed;
+    background-size: cover;
+    background-attachment: fixed;
+    background-blend-mode: overlay;
   }
   
   .hero-bg {
-    background: linear-gradient(135deg, hsl(222 47% 11%) 0%, hsl(222 89% 37%) 50%, hsl(187 94% 42%) 100%);
+    background: linear-gradient(135deg, 
+                rgba(17, 24, 39, 0.95) 0%, 
+                rgba(30, 58, 138, 0.9) 50%, 
+                rgba(8, 145, 178, 0.85) 100%),
+                url('/assets/images/background.png') no-repeat center center fixed;
+    background-size: cover;
+    background-attachment: fixed;
+    background-blend-mode: overlay;
   }
   
   .tech-pattern {
