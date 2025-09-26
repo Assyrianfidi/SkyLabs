@@ -1,28 +1,31 @@
-import { Switch, Route } from "wouter";
-import { queryClient } from "./lib/queryClient";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { Toaster } from "@/components/ui/toaster";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import Home from "@/pages/home";
-import NotFound from "@/pages/not-found";
-
-function Router() {
-  return (
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route component={NotFound} />
-    </Switch>
-  );
-}
+import { useState } from 'react';
+import Header from './components/header';
+import Hero from './components/hero';
+import About from './components/about';
+import Services from './components/services';
+import Portfolio from './components/portfolio';
+import Contact from './components/contact';
+import Footer from './components/footer';
+import { ThemeToggle } from './components/theme-toggle';
+import './index.css';
 
 function App() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Router />
-      </TooltipProvider>
-    </QueryClientProvider>
+    <div className="min-h-screen flex flex-col bg-background text-foreground transition-colors duration-200">
+      <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen}>
+        <ThemeToggle />
+      </Header>
+      <main className="flex-grow">
+        <Hero />
+        <About />
+        <Services />
+        <Portfolio />
+        <Contact />
+      </main>
+      <Footer />
+    </div>
   );
 }
 

@@ -2,6 +2,7 @@ import rateLimit, { ipKeyGenerator } from 'express-rate-limit';
 import helmet from 'helmet';
 import { config } from 'dotenv';
 import { Request, Response, NextFunction, RequestHandler } from 'express';
+import { randomBytes } from 'crypto';
 
 // Load environment variables
 config();
@@ -70,21 +71,99 @@ const securityHeaders: RequestHandler[] = [
       );
     }
     
-    // Set Content Security Policy
-    res.setHeader(
-      'Content-Security-Policy',
-      "default-src 'self'; " +
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval'; " +
-      "style-src 'self' 'unsafe-inline'; " +
-      "img-src 'self' data: https:; " +
-      "font-src 'self' https://fonts.gstatic.com; " +
-      "connect-src 'self' " + (process.env.API_BASE_URL || 'http://localhost:3000') + "; " +
-      "object-src 'none'; " +
-      "base-uri 'self'; " +
-      "form-action 'self'; " +
-      "frame-ancestors 'none'; " +
-      "upgrade-insecure-requests;"
-    );
+    // Set Content Security Policy with nonce-based approach
+    const nonce = randomBytes(16).toString('base64');
+    res.locals.cspNonce = nonce; // Make nonce available in templates
+    
+    // Default CSP directives with environment overrides
+    const cspDirectives = [
+      `default-src 'self'`,
+      // Script sources
+      `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ` +
+        `https://www.google.com/recaptcha/ ` +
+        `https://www.gstatic.com/recaptcha/ ` +
+        `https://replit.com ` +
+        `https://repl.it ` +
+        `https://replit.com/ ` +
+        `https://replit-public.nyc3.digitaloceanspaces.com ` +
+        `https://unpkg.com ` +
+        `'unsafe-inline'`,
+      `script-src-elem 'self' 'nonce-${nonce}' ` +
+        `https://www.google.com/recaptcha/ ` +
+        `https://www.gstatic.com/recaptcha/ ` +
+        `https://replit.com ` +
+        `https://repl.it ` +
+        `https://replit.com/ ` +
+        `https://replit-public.nyc3.digitaloceanspaces.com ` +
+        `https://unpkg.com ` +
+        `'unsafe-inline'`,
+      // Style sources
+      `style-src 'self' 'unsafe-inline' 'unsafe-hashes' ` +
+        `https://fonts.googleapis.com ` +
+        `https://replit.com ` +
+        `https://repl.it ` +
+        `https://unpkg.com`,
+      `style-src-elem 'self' 'unsafe-inline' ` +
+        `https://fonts.googleapis.com ` +
+        `https://replit.com ` +
+        `https://repl.it ` +
+        `https://unpkg.com`,
+      // Media sources
+      `img-src 'self' data: blob: https: http:`,
+      // Font sources
+      `font-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com data: blob:`,
+      // Connect sources
+      `connect-src 'self' ` +
+        `https://www.google.com/recaptcha/ ` +
+        `https://www.gstatic.com/recaptcha/ ` +
+        `ws: wss: ` +
+        `https://replit.com ` +
+        `https://repl.it ` +
+        `http://localhost:3001 ` +
+        `http://127.0.0.1:3001 ` +
+        `http://localhost:5173 ` +
+        `http://127.0.0.1:5173 ` +
+        `http://localhost:${process.env.PORT || 3002} ` +
+        `http://127.0.0.1:${process.env.PORT || 3002} ` +
+        `${process.env.API_BASE_URL || 'http://localhost:3001'}`,
+      // Frame sources
+      `frame-src 'self' ` +
+        `https://www.google.com/recaptcha/ ` +
+        `https://replit.com ` +
+        `https://repl.it`,
+      // Other directives
+      `prefetch-src 'self' https://fonts.gstatic.com`,
+      `manifest-src 'self'`,
+      `worker-src 'self' blob:`,
+      `object-src 'none'`,
+      `base-uri 'self'`,
+      `form-action 'self'`,
+      `frame-ancestors 'self'`,
+      `upgrade-insecure-requests`,
+      `media-src 'self' https: blob: data:`
+    ];
+    
+    // Add report-uri if configured
+    if (process.env.CSP_REPORT_URI) {
+      cspDirectives.push(`report-uri ${process.env.CSP_REPORT_URI}`);
+      cspDirectives.push('report-to csp-endpoint');
+    }
+    
+    // Set the CSP header
+    const cspHeader = cspDirectives.join('; ');
+    res.setHeader('Content-Security-Policy', cspHeader);
+    
+    // Set Report-To header for CSP violation reporting
+    if (process.env.NODE_ENV !== 'production' || process.env.CSP_REPORT_URI) {
+      res.setHeader('Report-To', JSON.stringify({
+        group: 'csp-endpoint',
+        max_age: 10886400,
+        endpoints: [
+          { url: process.env.CSP_REPORT_URI || '/csp-report' }
+        ],
+        include_subdomains: true
+      }));
+    }
     
     next();
   }

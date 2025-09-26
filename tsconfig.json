@@ -1,31 +1,62 @@
 {
-  "include": ["client/src/**/*", "shared/**/*", "server/**/*"],
-  "exclude": ["node_modules", "build", "dist", "**/*.test.ts"],
   "compilerOptions": {
-    "incremental": true,
-    "tsBuildInfoFile": "./node_modules/typescript/tsbuildinfo",
-    "noEmit": true,
-    "module": "NodeNext",
+    /* Base Options */
     "target": "ES2020",
+    "module": "ESNext",
     "moduleResolution": "NodeNext",
-    "strict": true,
-    "lib": ["es2022", "dom", "dom.iterable"],
-    "jsx": "preserve",
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
     "skipLibCheck": true,
-    "allowImportingTsExtensions": true,
-    "baseUrl": ".",
-    "types": ["node", "vite/client"],
-    "paths": {
-      "@/*": ["./client/src/*"],
-      "@shared/*": ["./shared/*"]
-    },
+    "forceConsistentCasingInFileNames": true,
+    
+    /* Output */
     "outDir": "./dist",
     "rootDir": ".",
-    "forceConsistentCasingInFileNames": true,
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
     "resolveJsonModule": true,
+    
+    /* Library Support */
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "types": [
+      "node",
+      "@types/node",
+      "jest", 
+      "@testing-library/jest-dom",
+      "@testing-library/jest-dom/matchers",
+      "@testing-library/react"
+    ],
+    "jsx": "react-jsx",
+    
+    /* Paths */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./client/src/*"],
+      "@components/*": ["./client/src/components/*"],
+      "@pages/*": ["./client/src/pages/*"],
+      "@styles/*": ["./client/src/styles/*"],
+      "@utils/*": ["./client/src/utils/*"],
+      "@hooks/*": ["./client/src/hooks/*"],
+      "@types/*": ["./client/src/types/*"],
+      "@lib/*": ["./client/src/lib/*"],
+      "@public/*": ["./public/*"],
+      "@server/*": ["./server/*"],
+      "@shared/*": ["./shared/*"],
+      "@test/*": ["./__tests__/*"],
+      "@mocks/*": ["./__mocks__/*"]
+    },
+    
+    /* Module Resolution */
+    "allowJs": true,
+    "noEmit": false,
     "isolatedModules": true,
-    "noEmitOnError": true,
+    "allowImportingTsExtensions": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
@@ -33,9 +64,35 @@
     "strictPropertyInitialization": true,
     "noImplicitThis": true,
     "alwaysStrict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
-  }
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.json",
+    
+    /* Include test files */
+    "**/__tests__/**/*.test.ts",
+    "**/__tests__/**/*.test.tsx",
+    "**/__tests__/**/*.spec.ts",
+    "**/__tests__/**/*.spec.tsx",
+    
+    /* Include source files */
+    "server/**/*",
+    "shared/**/*",
+    "client/src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    ".next",
+    "out",
+    "build",
+    "coverage",
+    "**/*.test.js",
+    "**/*.spec.js"
+  ]
 }

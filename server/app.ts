@@ -12,7 +12,7 @@ config();
 
 // Initialize Express app
 const app: Express = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3002;
 
 // Create HTTP server
 const server = createServer(app);
@@ -29,7 +29,7 @@ app.use(enforceHTTPS);
 
 // CORS configuration - Apply after security headers
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+  origin: process.env.CORS_ORIGIN || 'http://localhost:3001',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],

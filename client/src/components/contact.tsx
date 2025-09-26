@@ -1,205 +1,273 @@
-import React, { useState } from "react";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { useState, type FormEvent, type ChangeEvent } from "react";
+import { Mail, Phone, MapPin, Send, Loader2 } from "lucide-react";
 
 type ContactFormData = {
   name: string;
   email: string;
-  phone?: string;
+  phone: string;
   message: string;
   website?: string; // Honeypot field
 };
 
-export default function Contact() {
+interface ContactInfo {
+  email: string;
+  phone: string;
+  location: string;
+}
+
+const DEFAULT_FORM_STATE: ContactFormData = {
+  name: "",
+  email: "",
+  phone: "",
+  message: "",
+  website: "",
+};
+
+const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [formData, setFormData] = useState<ContactFormData>({
-    name: '',
-    email: '',
-    phone: '',
-    message: '',
-    website: ''
-  });
+  const [formData, setFormData] = useState<ContactFormData>(DEFAULT_FORM_STATE);
+  const [formErrors, setFormErrors] = useState<Partial<ContactFormData>>({});
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const contactEmail = 'fidi.amazon@gmail.com';
+  const contactInfo: ContactInfo = {
+    email: "fidi.amazon@gmail.com",
+    phone: "+1 (555) 123-4567",
+    location: "San Francisco, CA",
+  };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const validateForm = (): boolean => {
+    const errors: Partial<ContactFormData> = {};
+    let isValid = true;
+
+    if (!formData.name.trim()) {
+      errors.name = "Name is required";
+      isValid = false;
+    }
+
+    if (!formData.email) {
+      errors.email = "Email is required";
+      isValid = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      errors.email = "Please enter a valid email address";
+      isValid = false;
+    }
+
+    if (!formData.message.trim()) {
+      errors.message = "Message is required";
+      isValid = false;
+    }
+
+    setFormErrors(errors);
+    return isValid;
+  };
+
+  const resetForm = () => {
+    setFormData(DEFAULT_FORM_STATE);
+    setFormErrors({});
+  };
+
+  const showSuccess = (message: string) => {
+    setSubmitError(null);
+    console.log("Success:", message);
+  };
+
+  const showError = (message: string) => {
+    setSubmitError(message);
+    console.error("Error:", message);
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError(null);
+    setSubmitError(null);
+    setIsSubmitting(true);
 
     // Honeypot check - if this field is filled, it's likely a bot
     if (formData.website && formData.website.trim().length > 0) {
-      console.log('Bot detected by honeypot');
-      // Show success message to bots but don't actually submit
-      setIsSuccess(true);
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        message: '',
-        website: ''
-      });
+      console.log("Bot detected by honeypot");
+      resetForm();
+      showSuccess("Message sent!");
+      setIsSubmitting(false);
       return;
     }
 
-    // Basic validation
-    if (!formData.name || !formData.email || !formData.message) {
-      setError('Please fill in all required fields');
+    if (!validateForm()) {
+      setIsSubmitting(false);
       return;
     }
-
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      setError('Please enter a valid email address');
-      return;
-    }
-
-    setIsSubmitting(true);
 
     try {
-      // Use relative path for API requests
-      const response = await fetch('/api/contact', {
-        method: 'POST',
+      const response = await fetch("/api/contact", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        credentials: 'include',
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          phone: formData.phone || '',
-          message: formData.message
+          phone: formData.phone,
+          message: formData.message,
         }),
       });
 
-      const data = await response.json().catch(() => ({}));
-
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to send message');
+        throw new Error("Failed to send message. Please try again later.");
       }
 
-      // Reset form on success
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        message: '',
-        website: ''
-      });
-      setIsSuccess(true);
-      setError(null);
+      showSuccess("Message sent successfully!");
+      resetForm();
 
-      // Track form submission if gtag is available
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'form_submit', {
-          event_category: 'Contact',
-          event_label: 'Contact Form Submission',
+      if (typeof window !== "undefined" && (window as any).gtag) {
+        (window as any).gtag("event", "form_submit", {
+          event_category: "Contact",
+          event_label: "Contact Form Submission",
           value: 1,
         });
       }
-    } catch (err) {
-      console.error('Error submitting form:', err);
-      setError(err instanceof Error ? err.message : 'Failed to send message. Please try again.');
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : "Failed to send message. Please try again.";
+      showError(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
   };
-  
+
   return (
-    <div className="container mx-auto px-4 py-12">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold text-center mb-8">Contact Us</h1>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <section
+      id="contact"
+      className="py-16 md:py-24 lg:py-32 bg-background"
+    >
+      <div className="container px-4 md:px-6">
+        <div className="mx-auto max-w-4xl text-center space-y-6">
+          <div className="space-y-2">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+              Get in Touch
+            </h2>
+            <p className="text-muted-foreground max-w-[700px] mx-auto">
+              Have questions or want to discuss a project? Send us a message and
+              we'll get back to you as soon as possible.
+            </p>
+          </div>
+        </div>
+
+        {submitError && (
+          <div className="max-w-4xl mx-auto mb-8 p-4 bg-red-50 border-l-4 border-red-500">
+            <p className="text-sm text-red-700">{submitError}</p>
+          </div>
+        )}
+
+        <div className="mt-12 grid gap-8 lg:grid-cols-2 lg:gap-12">
           {/* Contact Form */}
-          <div>
-            <div className="bg-white rounded-lg shadow-md p-6">
-              {isSuccess ? (
-                <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded relative" role="alert">
-                  <strong className="font-bold">Thank you!</strong>
-                  <span className="block sm:inline"> Your message has been sent. We'll get back to you soon!</span>
-                  <button 
-                    onClick={() => setIsSuccess(false)}
-                    className="absolute top-0 bottom-0 right-0 px-4 py-3"
+          <div className="space-y-6">
+            <div className="rounded-lg border bg-card p-6 shadow-sm">
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="space-y-2">
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium mb-1"
                   >
-                    <span className="sr-only">Close</span>
-                    <svg className="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
                     Name <span className="text-red-500">*</span>
                   </label>
                   <input
-                    type="text"
+                    id="name"
                     name="name"
+                    type="text"
                     value={formData.name}
                     onChange={handleChange}
-                    required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className={`w-full px-3 py-2 border rounded-md ${
+                      formErrors.name ? "border-red-500" : "border-input"
+                    }`}
                     placeholder="Your name"
                   />
+                  {formErrors.name && (
+                    <p className="text-sm text-red-500 mt-1">
+                      {formErrors.name}
+                    </p>
+                  )}
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                <div className="space-y-2">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium mb-1"
+                  >
                     Email <span className="text-red-500">*</span>
                   </label>
                   <input
-                    type="email"
+                    id="email"
                     name="email"
+                    type="email"
                     value={formData.email}
                     onChange={handleChange}
-                    required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className={`w-full px-3 py-2 border rounded-md ${
+                      formErrors.email ? "border-red-500" : "border-input"
+                    }`}
                     placeholder="your.email@example.com"
                   />
+                  {formErrors.email && (
+                    <p className="text-sm text-red-500 mt-1">
+                      {formErrors.email}
+                    </p>
+                  )}
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                <div className="space-y-2">
+                  <label
+                    htmlFor="phone"
+                    className="block text-sm font-medium mb-1"
+                  >
                     Phone
                   </label>
                   <input
-                    type="tel"
+                    id="phone"
                     name="phone"
+                    type="tel"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-3 py-2 border border-input rounded-md"
                     placeholder="(123) 456-7890"
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                <div className="space-y-2">
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-medium mb-1"
+                  >
                     Message <span className="text-red-500">*</span>
                   </label>
                   <textarea
+                    id="message"
                     name="message"
+                    rows={4}
                     value={formData.message}
                     onChange={handleChange}
-                    required
-                    rows={5}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="Your message"
+                    className={`w-full px-3 py-2 border rounded-md ${
+                      formErrors.message ? "border-red-500" : "border-input"
+                    }`}
+                    placeholder="Tell us about your project..."
                   />
+                  {formErrors.message && (
+                    <p className="text-sm text-red-500 mt-1">
+                      {formErrors.message}
+                    </p>
+                  )}
                 </div>
 
-                {/* Honeypot field - hidden from users but visible to bots */}
-                <div className="hidden" aria-hidden="true">
+                {/* Honeypot field */}
+                <div className="sr-only" aria-hidden="true">
                   <label htmlFor="website">Leave this field empty</label>
                   <input
                     type="text"
@@ -209,98 +277,107 @@ export default function Contact() {
                     onChange={handleChange}
                     tabIndex={-1}
                     autoComplete="off"
-                    placeholder="Leave this field empty"
-                    title="Leave this field empty"
-                    className="sr-only"
                   />
                 </div>
 
-                {error && (
-                  <div className="bg-red-50 border-l-4 border-red-400 p-4">
-                    <div className="flex">
-                      <div className="flex-shrink-0">
-                        <svg className="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                        </svg>
-                      </div>
-                      <div className="ml-3">
-                        <p className="text-sm text-red-700">{error}</p>
-                      </div>
-                    </div>
-                  </div>
-                )}
-                <div className="flex justify-end">
+                <div className="pt-2">
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={`px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    className="w-full bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background"
                   >
                     {isSubmitting ? (
-                      <span className="flex items-center">
-                        <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                         Sending...
-                      </span>
-                    ) : 'Send Message'}
+                      </>
+                    ) : (
+                      <>
+                        <Send className="mr-2 h-4 w-4" />
+                        Send Message
+                      </>
+                    )}
                   </button>
                 </div>
               </form>
-              )}
             </div>
           </div>
 
-          {/* Contact Info */}
+          {/* Contact Information */}
           <div className="space-y-6">
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-xl font-semibold mb-4">Get in Touch</h2>
-              <p className="text-gray-600 mb-6">
-                Have questions or want to discuss a project? Fill out the form or reach out to us directly.
+            <div className="space-y-4">
+              <h3 className="text-2xl font-bold">Contact Information</h3>
+              <p className="text-muted-foreground">
+                Have questions or want to get in touch? We'd love to hear from
+                you. Fill out the form or contact us directly using the
+                information below.
               </p>
+            </div>
 
-              <div className="space-y-4">
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 bg-blue-100 p-2 rounded-full">
-                    <Mail className="h-5 w-5 text-blue-600" />
-                  </div>
-                  <div className="ml-3">
-                    <h3 className="text-sm font-medium text-gray-900">Email</h3>
-                    <a href={`mailto:${contactEmail}`} className="text-sm text-blue-600 hover:underline">
-                      {contactEmail}
-                    </a>
-                  </div>
+            <div className="space-y-4">
+              <div className="flex items-start gap-4">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+                  <Mail className="h-5 w-5" />
                 </div>
-
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 bg-green-100 p-2 rounded-full">
-                    <Phone className="h-5 w-5 text-green-600" />
-                  </div>
-                  <div className="ml-3">
-                    <h3 className="text-sm font-medium text-gray-900">Phone</h3>
-                    <a href="tel:+1234567890" className="text-sm text-gray-600 hover:text-blue-600 hover:underline">
-                      (778) 404-3413
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 bg-purple-100 p-2 rounded-full">
-                    <MapPin className="h-5 w-5 text-purple-600" />
-                  </div>
-                  <div className="ml-3">
-                    <h3 className="text-sm font-medium text-gray-900">Location</h3>
-                    <p className="text-sm text-gray-600">
-                      10355 152 St<br />
-                      Surrey, BC V3R 7C3
-                    </p>
-                  </div>
+                <div>
+                  <h4 className="font-medium">Email</h4>
+                  <a
+                    href={`mailto:${contactInfo.email}`}
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    {contactInfo.email}
+                  </a>
                 </div>
               </div>
+
+              <div className="flex items-start gap-4">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+                  <Phone className="h-5 w-5" />
+                </div>
+                <div>
+                  <h4 className="font-medium">Phone</h4>
+                  <a
+                    href={`tel:${contactInfo.phone.replace(/[^0-9+]/g, "")}`}
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    {contactInfo.phone}
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+                  <MapPin className="h-5 w-5" />
+                </div>
+                <div>
+                  <h4 className="font-medium">Location</h4>
+                  <p className="text-muted-foreground">{contactInfo.location}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-4">
+              <h4 className="font-medium mb-3">Business Hours</h4>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li className="flex justify-between">
+                  <span>Monday - Friday</span>
+                  <span>9:00 AM - 6:00 PM</span>
+                </li>
+                <li className="flex justify-between">
+                  <span>Saturday</span>
+                  <span>10:00 AM - 4:00 PM</span>
+                </li>
+                <li className="flex justify-between text-muted-foreground/70">
+                  <span>Sunday</span>
+                  <span>Closed</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
+
+export default Contact;

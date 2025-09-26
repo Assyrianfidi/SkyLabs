@@ -1,23 +1,72 @@
-export default {
-  preset: 'ts-jest/presets/default-esm',
-  testEnvironment: 'node',
-  testMatch: ['**/__tests__/**/*.test.ts', '**/__tests__/**/*.integration.test.ts'],
-  moduleNameMapper: {
-    '^(\\.{1,2}/.*)\\.js$': '$1',
-  },
-  transform: {
-    '^.+\\.tsx?$': ['ts-jest', {
-      useESM: true,
-      tsconfig: 'tsconfig.json',
-      isolatedModules: true,
-    }],
-  },
-  extensionsToTreatAsEsm: ['.ts'],
-  moduleFileExtensions: ['ts', 'js', 'json', 'node'],
-  transformIgnorePatterns: [
-    'node_modules/(?!(express|bcrypt|jsonwebtoken|helmet|express-rate-limit|express-validator|dotenv)/)',
+// Jest configuration for TypeScript, ESM, and React
+module.exports = {
+  // Test environment
+  testEnvironment: 'jsdom',
+  
+  // Test file patterns
+  testMatch: [
+    '**/__tests__/**/*.test.[jt]s?(x)',
+    '**/?(*.)+(spec|test).[jt]s?(x)'
   ],
-  testEnvironmentOptions: {
-    url: 'http://localhost:3000',
+  
+  // Ignore patterns
+  testPathIgnorePatterns: [
+    '/node_modules/\\\..*/', // Ignore nested node_modules
+    '/dist/',
+    '/coverage/',
+    '/public/',
+    '/.next/',
+    '/out/',
+    '/build/',
+    '/e2e-tests/'
+  ],
+  
+  // Transform settings
+  transform: {
+    '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', {
+      configFile: './babel.config.js'
+    }]
   },
+  
+  // Module file extensions
+  moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json', 'node'],
+  
+  // Module name mapper for path aliases
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+    '^@components/(.*)$': '<rootDir>/src/components/$1',
+    '^@pages/(.*)$': '<rootDir>/src/pages/$1',
+    '^@styles/(.*)$': '<rootDir>/src/styles/$1',
+    '^@utils/(.*)$': '<rootDir>/src/utils/$1',
+    '^@hooks/(.*)$': '<rootDir>/src/hooks/$1',
+    '^@types/(.*)$': '<rootDir>/src/types/$1',
+    '\\.(css|less|scss|sass)$': 'identity-obj-proxy'
+  },
+  
+  // Setup files
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js', '@testing-library/jest-dom'],
+  
+  // TypeScript configuration
+  globals: {
+    'ts-jest': {
+      tsconfig: 'tsconfig.test.json',
+      babelConfig: true,
+      useESM: false // Changed to false for CommonJS compatibility
+    }
+  },
+  
+  // Disable ESM support for CommonJS compatibility
+  extensionsToTreatAsEsm: [],
+  
+  // Coverage settings
+  collectCoverage: true,
+  coverageDirectory: 'coverage',
+  coverageReporters: ['text', 'lcov'],
+  collectCoverageFrom: [
+    'src/**/*.{js,jsx,ts,tsx}',
+    '!**/node_modules/**',
+    '!**/vendor/**',
+    '!**/types/**',
+    '!**/*.d.ts'
+  ]
 };

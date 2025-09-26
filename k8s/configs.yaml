@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: skylabs-config
+  namespace: apps
+data:
+  NODE_ENV: production
+  PORT: "3000"
+  LOG_LEVEL: info
+  CORS_ORIGIN: "*"
+  API_PREFIX: "/api/v1"
+  # Add other non-sensitive configuration here
+  # These values will be available as environment variables in the container
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: skylabs-secrets
+  namespace: apps
+type: Opaque
+data:
+  # These values should be base64 encoded
+  # Example: echo -n "your-database-url" | base64
+  DATABASE_URL: ${DATABASE_URL_BASE64}
+  SESSION_SECRET: ${SESSION_SECRET_BASE64}
+  RECAPTCHA_SITE_KEY: ${RECAPTCHA_SITE_KEY_BASE64}
+  RECAPTCHA_SECRET_KEY: ${RECAPTCHA_SECRET_KEY_BASE64}
+  # Add other sensitive configuration here
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: skylabs
+  namespace: apps
+  labels:
+    app: skylabs
+    tier: backend
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: skylabs
+  namespace: apps
+rules:
+- apiGroups: [""]
+  resources: ["pods", "pods/log"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: [""]
+  resources: ["secrets", "configmaps"]
+  verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: skylabs
+  namespace: apps
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: skylabs
+subjects:
+- kind: ServiceAccount
+  name: skylabs
+  namespace: apps

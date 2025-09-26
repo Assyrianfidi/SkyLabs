@@ -5,11 +5,16 @@ SkyLabs is a full-stack web application built with React, TypeScript, Express, a
 ## 🚀 Features
 
 - **Modern UI/UX** with responsive design
-- **Contact Form** with form validation
+- **Contact Form** with reCAPTCHA validation
 - **Portfolio Showcase** of past projects
 - **Services** overview
 - **About Us** section
 - **Blog** (Coming Soon)
+- **Containerized** with Docker
+- **CI/CD** with GitHub Actions
+- **Monitoring** with Prometheus and Grafana
+- **Rate Limiting** and security headers
+- **Automated Testing** with Vitest and Playwright
 
 ## 🛠 Tech Stack
 
@@ -17,13 +22,17 @@ SkyLabs is a full-stack web application built with React, TypeScript, Express, a
 - **Backend**: Node.js, Express, TypeScript
 - **Database**: PostgreSQL with Drizzle ORM
 - **Styling**: Tailwind CSS with custom theming
-- **Build Tool**: Vite
-- **Deployment**: Configured for Vercel/Netlify
+- **Containerization**: Docker
+- **CI/CD**: GitHub Actions
+- **Monitoring**: Prometheus, Grafana
+- **Testing**: Vitest, React Testing Library, Playwright
+- **Security**: Helmet, rate limiting, CSP headers
 
 ## 📦 Prerequisites
 
-- Node.js 18+
+- Node.js 20+
 - PostgreSQL 14+
+- Docker and Docker Compose
 - npm or yarn
 
 ## 🚀 Getting Started
@@ -37,7 +46,18 @@ cd skylabs
 ### 2. Install dependencies
 
 ```bash
+# Install root dependencies
 npm install
+
+# Install client dependencies
+cd client
+npm install
+cd ..
+
+# Install server dependencies
+cd server
+npm install
+cd ..
 ```
 
 ### 3. Set up environment variables
@@ -48,6 +68,24 @@ Create a `.env` file in the root directory with the following content:
 # Server Configuration
 PORT=3000
 NODE_ENV=development
+
+# Database
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/skylabs
+
+# CORS
+CORS_ORIGIN=http://localhost:3000
+
+# reCAPTCHA
+RECAPTCHA_SITE_KEY=your_recaptcha_site_key
+RECAPTCHA_SECRET_KEY=your_recaptcha_secret_key
+
+# Redis (for rate limiting)
+REDIS_URL=redis://localhost:6379
+
+# Monitoring
+PROMETHEUS_METRICS_PATH=/metrics
+PROMETHEUS_PORT=9090
+GRAFANA_PORT=3001
 
 # Email Configuration
 CONTACT_EMAIL=fidi.amazon@gmail.com

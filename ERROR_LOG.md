@@ -1,3 +1,377 @@
+### 2025-09-16T20:11:19.794Z - Database initialization
+
+- **Category:** Database
+- **Severity:** 🔴 Critical
+- **Error Message:** `{
+  "message": "Failed to connect to database after 5 attempts",
+  "originalError": "Cannot access 'mockConnect' before initialization",
+  "connectionDetails": {
+    "host": "localhost",
+    "port": 5432,
+    "database": "skylabs_dev",
+    "user": "skylabs"
+  },
+  "suggestion": "Check if PostgreSQL is running and the credentials are correct."
+}`
+- **Fix Suggestion:** Check database configuration and network connectivity.
+- **Status:** 🔄 Pending
+- **Stack Trace:** ```
+Error: {
+  "message": "Failed to connect to database after 5 attempts",
+  "originalError": "Cannot access 'mockConnect' before initialization",
+  "connectionDetails": {
+    "host": "localhost",
+    "port": 5432,
+    "database": "skylabs_dev",
+    "user": "skylabs"
+  },
+  "suggestion": "Check if PostgreSQL is running and the credentials are correct."
+}
+    at createDatabaseConnection (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\db\index.ts:153:15)
+    at initializeDatabase (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\db\index.ts:211:20)
+    at Module.getPool (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\db\index.ts:255:22)
+    at C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\routes\contact.ts:77:14
+    at VitestExecutor.runModule (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/vite-node/dist/client.mjs:397:4)
+    at VitestExecutor.directRequest (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/vite-node/dist/client.mjs:375:3)
+    at VitestExecutor.cachedRequest (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/vite-node/dist/client.mjs:189:11)
+    at VitestExecutor.dependencyRequest (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/vite-node/dist/client.mjs:239:10)
+    at C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\tests\server\contactApi.test.ts:38:1
+    at VitestExecutor.runModule (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/vite-node/dist/client.mjs:397:4)```
+- **Metadata:** ```json
+{
+  "timestamp": "2025-09-16T20:11:19.794Z"
+}```
+- **Linked Task:** [db_initialization_error](C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\TODO.md#db_initialization_error)
+---
+### 2025-09-16T20:11:19.782Z - Database Connection Failed
+
+- **Category:** Database
+- **Severity:** 🔴 Critical
+- **Error Message:** `Cannot access 'mockConnect' before initialization`
+- **Fix Suggestion:** Check database configuration and network connectivity.
+- **Status:** 🔄 Pending
+- **Stack Trace:** ```
+ReferenceError: Cannot access 'mockConnect' before initialization
+    at fn.<anonymous> (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\tests\server\contactApi.test.ts:23:14)
+    at new mockCall (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/@vitest/spy/dist/index.js:96:15)
+    at new spy (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/tinyspy/dist/index.js:47:39)
+    at createDatabaseConnection (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\db\index.ts:86:20)
+    at initializeDatabase (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\db\index.ts:211:20)
+    at Module.getPool (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\db\index.ts:255:22)
+    at C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\routes\contact.ts:77:14
+    at VitestExecutor.runModule (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/vite-node/dist/client.mjs:397:4)
+    at VitestExecutor.directRequest (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/vite-node/dist/client.mjs:375:3)
+    at VitestExecutor.cachedRequest (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/vite-node/dist/client.mjs:189:11)```
+- **Metadata:** ```json
+{
+  "attempt": 5,
+  "maxAttempts": 5,
+  "host": "localhost",
+  "port": 5432,
+  "database": "skylabs_dev",
+  "user": "skylabs",
+  "hasPassword": true
+}```
+- **Linked Task:** [db_connection](C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\TODO.md#db_connection)
+---
+### 2025-09-16T20:10:49.758Z - Database Connection Failed
+
+- **Category:** Database
+- **Severity:** 🔴 Critical
+- **Error Message:** `Cannot access 'mockConnect' before initialization`
+- **Fix Suggestion:** Check database configuration and network connectivity.
+- **Status:** 🔄 Pending
+- **Stack Trace:** ```
+ReferenceError: Cannot access 'mockConnect' before initialization
+    at fn.<anonymous> (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\tests\server\contactApi.test.ts:23:14)
+    at new mockCall (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/@vitest/spy/dist/index.js:96:15)
+    at new spy (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/tinyspy/dist/index.js:47:39)
+    at createDatabaseConnection (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\db\index.ts:86:20)
+    at initializeDatabase (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\db\index.ts:211:20)
+    at Module.getPool (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\db\index.ts:255:22)
+    at C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\routes\contact.ts:77:14
+    at VitestExecutor.runModule (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/vite-node/dist/client.mjs:397:4)
+    at VitestExecutor.directRequest (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/vite-node/dist/client.mjs:375:3)
+    at VitestExecutor.cachedRequest (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/vite-node/dist/client.mjs:189:11)```
+- **Metadata:** ```json
+{
+  "attempt": 4,
+  "maxAttempts": 5,
+  "host": "localhost",
+  "port": 5432,
+  "database": "skylabs_dev",
+  "user": "skylabs",
+  "hasPassword": true
+}```
+- **Linked Task:** [db_connection](C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\TODO.md#db_connection)
+---
+### 2025-09-16T20:10:28.140Z - Database Connection Failed
+
+- **Category:** Database
+- **Severity:** 🔴 Critical
+- **Error Message:** `Cannot access 'mockConnect' before initialization`
+- **Fix Suggestion:** Check database configuration and network connectivity.
+- **Status:** 🔄 Pending
+- **Stack Trace:** ```
+ReferenceError: Cannot access 'mockConnect' before initialization
+    at fn.<anonymous> (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\tests\server\contactApi.test.ts:23:14)
+    at new mockCall (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/@vitest/spy/dist/index.js:96:15)
+    at new spy (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/tinyspy/dist/index.js:47:39)
+    at createDatabaseConnection (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\db\index.ts:86:20)
+    at initializeDatabase (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\db\index.ts:211:20)
+    at Module.getPool (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\db\index.ts:255:22)
+    at C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\routes\contact.ts:77:14
+    at VitestExecutor.runModule (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/vite-node/dist/client.mjs:397:4)
+    at VitestExecutor.directRequest (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/vite-node/dist/client.mjs:375:3)
+    at VitestExecutor.cachedRequest (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/vite-node/dist/client.mjs:189:11)```
+- **Metadata:** ```json
+{
+  "attempt": 3,
+  "maxAttempts": 5,
+  "host": "localhost",
+  "port": 5432,
+  "database": "skylabs_dev",
+  "user": "skylabs",
+  "hasPassword": true
+}```
+- **Linked Task:** [db_connection](C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\TODO.md#db_connection)
+---
+### 2025-09-16T20:10:19.450Z - Database Connection Failed
+
+- **Category:** Database
+- **Severity:** 🔴 Critical
+- **Error Message:** `Cannot access 'mockConnect' before initialization`
+- **Fix Suggestion:** Check database configuration and network connectivity.
+- **Status:** 🔄 Pending
+- **Stack Trace:** ```
+ReferenceError: Cannot access 'mockConnect' before initialization
+    at fn.<anonymous> (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\tests\server\contactApi.test.ts:23:14)
+    at new mockCall (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/@vitest/spy/dist/index.js:96:15)
+    at new spy (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/tinyspy/dist/index.js:47:39)
+    at createDatabaseConnection (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\db\index.ts:86:20)
+    at initializeDatabase (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\db\index.ts:211:20)
+    at Module.getPool (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\db\index.ts:255:22)
+    at C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\routes\contact.ts:77:14
+    at VitestExecutor.runModule (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/vite-node/dist/client.mjs:397:4)
+    at VitestExecutor.directRequest (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/vite-node/dist/client.mjs:375:3)
+    at VitestExecutor.cachedRequest (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/vite-node/dist/client.mjs:189:11)```
+- **Metadata:** ```json
+{
+  "attempt": 2,
+  "maxAttempts": 5,
+  "host": "localhost",
+  "port": 5432,
+  "database": "skylabs_dev",
+  "user": "skylabs",
+  "hasPassword": true
+}```
+- **Linked Task:** [db_connection](C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\TODO.md#db_connection)
+---
+### 2025-09-16T20:10:15.519Z - Database Connection Failed
+
+- **Category:** Database
+- **Severity:** 🔴 Critical
+- **Error Message:** `Cannot access 'mockConnect' before initialization`
+- **Fix Suggestion:** Check database configuration and network connectivity.
+- **Status:** 🔄 Pending
+- **Stack Trace:** ```
+ReferenceError: Cannot access 'mockConnect' before initialization
+    at fn.<anonymous> (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\tests\server\contactApi.test.ts:23:14)
+    at new mockCall (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/@vitest/spy/dist/index.js:96:15)
+    at new spy (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/tinyspy/dist/index.js:47:39)
+    at createDatabaseConnection (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\db\index.ts:86:20)
+    at initializeDatabase (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\db\index.ts:211:26)
+    at Module.getPool (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\db\index.ts:255:28)
+    at C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\routes\contact.ts:77:20
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at VitestExecutor.runModule (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/vite-node/dist/client.mjs:397:4)
+    at VitestExecutor.directRequest (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/vite-node/dist/client.mjs:375:3)```
+- **Metadata:** ```json
+{
+  "attempt": 1,
+  "maxAttempts": 5,
+  "host": "localhost",
+  "port": 5432,
+  "database": "skylabs_dev",
+  "user": "skylabs",
+  "hasPassword": true
+}```
+- **Linked Task:** [db_connection](C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\TODO.md#db_connection)
+---
+### 2025-09-13T21:54:03.873Z - Database initialization
+
+- **Category:** Database
+- **Severity:** 🔴 Critical
+- **Error Message:** `{
+  "message": "Failed to connect to database after 5 attempts",
+  "originalError": "The server does not support SSL connections",
+  "connectionDetails": {
+    "host": "localhost",
+    "port": 5432,
+    "database": "skylabs_dev",
+    "user": "skylabs"
+  },
+  "suggestion": "Check if PostgreSQL is running and the credentials are correct."
+}`
+- **Fix Suggestion:** Check database configuration and network connectivity.
+- **Status:** 🔄 Pending
+- **Stack Trace:** ```
+Error: {
+  "message": "Failed to connect to database after 5 attempts",
+  "originalError": "The server does not support SSL connections",
+  "connectionDetails": {
+    "host": "localhost",
+    "port": 5432,
+    "database": "skylabs_dev",
+    "user": "skylabs"
+  },
+  "suggestion": "Check if PostgreSQL is running and the credentials are correct."
+}
+    at ge (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/dist/index.js:14:2083)
+    at async R (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/dist/index.js:14:2866)
+    at async z (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/dist/index.js:14:3619)
+    at async file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/dist/index.js:14:4523```
+- **Metadata:** ```json
+{
+  "timestamp": "2025-09-13T21:54:03.873Z"
+}```
+- **Linked Task:** [db_initialization_error](C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\TODO.md#db_initialization_error)
+---
+### 2025-09-13T21:54:03.854Z - Database Connection Failed
+
+- **Category:** Database
+- **Severity:** 🔴 Critical
+- **Error Message:** `The server does not support SSL connections`
+- **Fix Suggestion:** Check database configuration and network connectivity.
+- **Status:** 🔄 Pending
+- **Stack Trace:** ```
+Error: The server does not support SSL connections
+    at C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async ge (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/dist/index.js:14:1273)
+    at async R (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/dist/index.js:14:2866)
+    at async z (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/dist/index.js:14:3619)
+    at async file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/dist/index.js:14:4523```
+- **Metadata:** ```json
+{
+  "attempt": 5,
+  "maxAttempts": 5,
+  "host": "localhost",
+  "port": 5432,
+  "database": "skylabs_dev",
+  "user": "skylabs",
+  "hasPassword": true
+}```
+- **Linked Task:** [db_connection](C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\TODO.md#db_connection)
+---
+### 2025-09-13T21:53:33.765Z - Database Connection Failed
+
+- **Category:** Database
+- **Severity:** 🔴 Critical
+- **Error Message:** `The server does not support SSL connections`
+- **Fix Suggestion:** Check database configuration and network connectivity.
+- **Status:** 🔄 Pending
+- **Stack Trace:** ```
+Error: The server does not support SSL connections
+    at C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async ge (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/dist/index.js:14:1273)
+    at async R (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/dist/index.js:14:2866)
+    at async z (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/dist/index.js:14:3619)
+    at async file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/dist/index.js:14:4523```
+- **Metadata:** ```json
+{
+  "attempt": 4,
+  "maxAttempts": 5,
+  "host": "localhost",
+  "port": 5432,
+  "database": "skylabs_dev",
+  "user": "skylabs",
+  "hasPassword": true
+}```
+- **Linked Task:** [db_connection](C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\TODO.md#db_connection)
+---
+### 2025-09-13T21:53:08.835Z - Database Connection Failed
+
+- **Category:** Database
+- **Severity:** 🔴 Critical
+- **Error Message:** `The server does not support SSL connections`
+- **Fix Suggestion:** Check database configuration and network connectivity.
+- **Status:** 🔄 Pending
+- **Stack Trace:** ```
+Error: The server does not support SSL connections
+    at C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async ge (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/dist/index.js:14:1273)
+    at async R (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/dist/index.js:14:2866)
+    at async z (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/dist/index.js:14:3619)
+    at async file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/dist/index.js:14:4523```
+- **Metadata:** ```json
+{
+  "attempt": 3,
+  "maxAttempts": 5,
+  "host": "localhost",
+  "port": 5432,
+  "database": "skylabs_dev",
+  "user": "skylabs",
+  "hasPassword": true
+}```
+- **Linked Task:** [db_connection](C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\TODO.md#db_connection)
+---
+### 2025-09-13T21:52:57.342Z - Database Connection Failed
+
+- **Category:** Database
+- **Severity:** 🔴 Critical
+- **Error Message:** `The server does not support SSL connections`
+- **Fix Suggestion:** Check database configuration and network connectivity.
+- **Status:** 🔄 Pending
+- **Stack Trace:** ```
+Error: The server does not support SSL connections
+    at C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async ge (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/dist/index.js:14:1273)
+    at async R (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/dist/index.js:14:2866)
+    at async z (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/dist/index.js:14:3619)
+    at async file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/dist/index.js:14:4523```
+- **Metadata:** ```json
+{
+  "attempt": 2,
+  "maxAttempts": 5,
+  "host": "localhost",
+  "port": 5432,
+  "database": "skylabs_dev",
+  "user": "skylabs",
+  "hasPassword": true
+}```
+- **Linked Task:** [db_connection](C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\TODO.md#db_connection)
+---
+### 2025-09-13T21:52:51.017Z - Database Connection Failed
+
+- **Category:** Database
+- **Severity:** 🔴 Critical
+- **Error Message:** `The server does not support SSL connections`
+- **Fix Suggestion:** Check database configuration and network connectivity.
+- **Status:** 🔄 Pending
+- **Stack Trace:** ```
+Error: The server does not support SSL connections
+    at C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async ge (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/dist/index.js:14:1273)
+    at async R (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/dist/index.js:14:2866)
+    at async z (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/dist/index.js:14:3619)
+    at async file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/dist/index.js:14:4523```
+- **Metadata:** ```json
+{
+  "attempt": 1,
+  "maxAttempts": 5,
+  "host": "localhost",
+  "port": 5432,
+  "database": "skylabs_dev",
+  "user": "skylabs",
+  "hasPassword": true
+}```
+- **Linked Task:** [db_connection](C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\TODO.md#db_connection)
+---
 ### 2025-09-13T01:28:31.726Z - Database Initialization Failed
 
 - **Category:** Database
@@ -11022,5 +11396,335 @@ PostgresError: relation "users_email_unique" already exists
 }
 ```
 
+
+---
+
+## 🔴 Critical server Error (2025-09-12 23:43:46)
+**ID:** `err-1757745826280-y397c`  
+**Context:** HTTP 500: GET /  
+**Task:** N/A
+
+### Details
+```json
+{
+  "message": "require is not defined",
+  "metadata": {}
+}
+```
+
+### Stack Trace
+```
+ReferenceError: require is not defined
+    at securityHeaders (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\middleware\securityMiddleware.ts:74:19)
+    at Layer.handle [as handle_request] (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:280:10)
+    at internalNext (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:527:6)
+    at xXssProtectionMiddleware (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:307:3)
+    at internalNext (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:525:6)
+    at xPoweredByMiddleware (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:300:3)
+```
+
+---
+
+## 🔴 Critical server Error (2025-09-12 23:43:46)
+**ID:** `err-1757745826585-rv41z`  
+**Context:** HTTP 500: GET /  
+**Task:** N/A
+
+### Details
+```json
+{
+  "message": "require is not defined",
+  "metadata": {}
+}
+```
+
+### Stack Trace
+```
+ReferenceError: require is not defined
+    at securityHeaders (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\middleware\securityMiddleware.ts:74:19)
+    at Layer.handle [as handle_request] (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:280:10)
+    at internalNext (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:527:6)
+    at xXssProtectionMiddleware (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:307:3)
+    at internalNext (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:525:6)
+    at xPoweredByMiddleware (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:300:3)
+```
+
+---
+
+## 🔴 Critical server Error (2025-09-12 23:43:46)
+**ID:** `err-1757745826781-r9ndw`  
+**Context:** HTTP 500: GET /favicon.ico  
+**Task:** N/A
+
+### Details
+```json
+{
+  "message": "require is not defined",
+  "metadata": {}
+}
+```
+
+### Stack Trace
+```
+ReferenceError: require is not defined
+    at securityHeaders (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\middleware\securityMiddleware.ts:74:19)
+    at Layer.handle [as handle_request] (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:280:10)
+    at internalNext (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:527:6)
+    at xXssProtectionMiddleware (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:307:3)
+    at internalNext (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:525:6)
+    at xPoweredByMiddleware (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:300:3)
+```
+
+---
+
+## 🔴 Critical server Error (2025-09-12 23:44:02)
+**ID:** `err-1757745842786-pary1`  
+**Context:** HTTP 500: GET /HEALTH  
+**Task:** N/A
+
+### Details
+```json
+{
+  "message": "require is not defined",
+  "metadata": {}
+}
+```
+
+### Stack Trace
+```
+ReferenceError: require is not defined
+    at securityHeaders (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\middleware\securityMiddleware.ts:74:19)
+    at Layer.handle [as handle_request] (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:280:10)
+    at internalNext (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:527:6)
+    at xXssProtectionMiddleware (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:307:3)
+    at internalNext (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:525:6)
+    at xPoweredByMiddleware (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:300:3)
+```
+
+---
+
+## 🔴 Critical server Error (2025-09-12 23:44:02)
+**ID:** `err-1757745842834-emefv`  
+**Context:** HTTP 500: GET /favicon.ico  
+**Task:** N/A
+
+### Details
+```json
+{
+  "message": "require is not defined",
+  "metadata": {}
+}
+```
+
+### Stack Trace
+```
+ReferenceError: require is not defined
+    at securityHeaders (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\middleware\securityMiddleware.ts:74:19)
+    at Layer.handle [as handle_request] (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:280:10)
+    at internalNext (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:527:6)
+    at xXssProtectionMiddleware (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:307:3)
+    at internalNext (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:525:6)
+    at xPoweredByMiddleware (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:300:3)
+```
+
+---
+
+## 🔴 Critical server Error (2025-09-12 23:44:10)
+**ID:** `err-1757745850540-381ys`  
+**Context:** HTTP 500: GET /favicon.ico  
+**Task:** N/A
+
+### Details
+```json
+{
+  "message": "require is not defined",
+  "metadata": {}
+}
+```
+
+### Stack Trace
+```
+ReferenceError: require is not defined
+    at securityHeaders (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\middleware\securityMiddleware.ts:74:19)
+    at Layer.handle [as handle_request] (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:280:10)
+    at internalNext (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:527:6)
+    at xXssProtectionMiddleware (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:307:3)
+    at internalNext (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:525:6)
+    at xPoweredByMiddleware (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:300:3)
+```
+
+---
+
+## 🔴 Critical server Error (2025-09-12 23:44:12)
+**ID:** `err-1757745852453-hxul2`  
+**Context:** HTTP 500: GET /  
+**Task:** N/A
+
+### Details
+```json
+{
+  "message": "require is not defined",
+  "metadata": {}
+}
+```
+
+### Stack Trace
+```
+ReferenceError: require is not defined
+    at securityHeaders (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\middleware\securityMiddleware.ts:74:19)
+    at Layer.handle [as handle_request] (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:280:10)
+    at internalNext (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:527:6)
+    at xXssProtectionMiddleware (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:307:3)
+    at internalNext (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:525:6)
+    at xPoweredByMiddleware (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:300:3)
+```
+
+---
+
+## 🔴 Critical server Error (2025-09-12 23:44:12)
+**ID:** `err-1757745852489-8s1x9`  
+**Context:** HTTP 500: GET /favicon.ico  
+**Task:** N/A
+
+### Details
+```json
+{
+  "message": "require is not defined",
+  "metadata": {}
+}
+```
+
+### Stack Trace
+```
+ReferenceError: require is not defined
+    at securityHeaders (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\middleware\securityMiddleware.ts:74:19)
+    at Layer.handle [as handle_request] (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:280:10)
+    at internalNext (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:527:6)
+    at xXssProtectionMiddleware (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:307:3)
+    at internalNext (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:525:6)
+    at xPoweredByMiddleware (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:300:3)
+```
+
+---
+
+## 🔴 Critical server Error (2025-09-12 23:44:31)
+**ID:** `err-1757745871798-zmed9`  
+**Context:** HTTP 500: GET /  
+**Task:** N/A
+
+### Details
+```json
+{
+  "message": "require is not defined",
+  "metadata": {}
+}
+```
+
+### Stack Trace
+```
+ReferenceError: require is not defined
+    at securityHeaders (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\middleware\securityMiddleware.ts:74:19)
+    at Layer.handle [as handle_request] (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:280:10)
+    at internalNext (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:527:6)
+    at xXssProtectionMiddleware (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:307:3)
+    at internalNext (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:525:6)
+    at xPoweredByMiddleware (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:300:3)
+```
+
+---
+
+## 🔴 Critical server Error (2025-09-12 23:44:32)
+**ID:** `err-1757745872641-zcvin`  
+**Context:** HTTP 500: GET /  
+**Task:** N/A
+
+### Details
+```json
+{
+  "message": "require is not defined",
+  "metadata": {}
+}
+```
+
+### Stack Trace
+```
+ReferenceError: require is not defined
+    at securityHeaders (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\middleware\securityMiddleware.ts:74:19)
+    at Layer.handle [as handle_request] (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:280:10)
+    at internalNext (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:527:6)
+    at xXssProtectionMiddleware (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:307:3)
+    at internalNext (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:525:6)
+    at xPoweredByMiddleware (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:300:3)
+```
+
+---
+
+## 🔴 Critical server Error (2025-09-12 23:44:32)
+**ID:** `err-1757745872807-rxjos`  
+**Context:** HTTP 500: GET /favicon.ico  
+**Task:** N/A
+
+### Details
+```json
+{
+  "message": "require is not defined",
+  "metadata": {}
+}
+```
+
+### Stack Trace
+```
+ReferenceError: require is not defined
+    at securityHeaders (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\server\middleware\securityMiddleware.ts:74:19)
+    at Layer.handle [as handle_request] (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\FIDI\Documents\Business2025Deployed\SkyLabs\SkyLabs\node_modules\express\lib\router\index.js:280:10)
+    at internalNext (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:527:6)
+    at xXssProtectionMiddleware (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:307:3)
+    at internalNext (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:525:6)
+    at xPoweredByMiddleware (file:///C:/Users/FIDI/Documents/Business2025Deployed/SkyLabs/SkyLabs/node_modules/helmet/index.mjs:300:3)
+```
 
 ---

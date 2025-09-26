@@ -1,33 +1,94 @@
 # SkyLabs Deployment Checklist
-## Contact Form – Production Readiness
 
-1. Environment Variables
-   - Server: `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_NAME` (or `DATABASE_URL`), `RECAPTCHA_SECRET_KEY`.
-   - Client: `NEXT_PUBLIC_RECAPTCHA_SITE_KEY`, `NEXT_PUBLIC_CONTACT_EMAIL`.
+## ContactFormWithRecaptcha – Production Readiness
 
-2. Database Migrations
-   - Run: `npm run db:migrate:apply` on the server.
-   - Verify the `contacts` table exists and indexes are present.
+### 1. Environment Variables
 
-3. Security & Anti-Spam
-   - reCAPTCHA enabled on client and verified on server (`server/routes/contact.ts`).
-   - Per-route rate limiting enabled on `/api/contact` (looser in `NODE_ENV=test`).
-   - Honeypot field `website` added on client and validated on server.
-   - Optional: server-side logging/auditing of submissions.
+#### Server
+- [ ] `RECAPTCHA_SECRET_KEY` - Google reCAPTCHA v3 secret key
+- [ ] `RATE_LIMIT_WINDOW_MS=900000` (15 minutes)
+- [ ] `RATE_LIMIT_MAX_REQUESTS=5`
+- [ ] `CONTACT_FORM_ENDPOINT=/api/contact`
+- [ ] `NODE_ENV=production`
 
-4. Integration & Edge Cases
-   - Client toasts show “Message Sent!” on success and a destructive error toast on failure.
-   - Validate: empty fields, invalid email, long message (optionally cap with Zod `.max()`).
-   - Simulate DB failure to confirm HTTP 500 without a crash.
+#### Client
+- [ ] `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` - Google reCAPTCHA v3 site key
+- [ ] `NEXT_PUBLIC_API_BASE_URL` - Base URL for API requests
+- [ ] `NEXT_PUBLIC_CONTACT_EMAIL` - Email for form submissions
+- [ ] `NEXT_PUBLIC_APP_ENV=production`
 
-5. HTTPS & Headers
-   - Confirm HTTPS redirect and security headers (Helmet) in staging/production.
-   - Inspect headers with: `curl -I https://your-domain/api/contact`.
+### 2. reCAPTCHA Configuration
 
-6. Testing
-   - Jest picks up `__tests__/*.integration.test.ts`.
-   - Use a test DB (recommended `skylabs_test`) or temporarily reuse dev DB.
-   - Optionally silence console output in tests.
+- [ ] Register domain in Google reCAPTCHA admin console
+- [ ] Set up proper domains in reCAPTCHA settings
+- [ ] Configure security preferences (score threshold, alerts)
+- [ ] Verify reCAPTCHA badge is visible on production
+- [ ] Test reCAPTCHA verification in different scenarios
+
+### 3. Security & Anti-Spam
+
+- [ ] Client-side rate limiting implemented
+- [ ] Honeypot field (`website`) properly hidden from users
+- [ ] CSRF protection enabled
+- [ ] Input sanitization on server
+- [ ] Request validation on server
+- [ ] Rate limiting on API endpoint
+- [ ] Audit logging for form submissions
+- [ ] IP-based rate limiting (optional)
+
+### 4. Testing
+
+#### Unit Tests
+- [ ] Form validation
+- [ ] Error handling
+- [ ] reCAPTCHA integration
+- [ ] Rate limiting
+- [ ] Accessibility checks
+
+#### Integration Tests
+- [ ] Form submission flow
+- [ ] Error scenarios
+- [ ] Rate limiting behavior
+- [ ] reCAPTCHA verification
+
+#### Manual Testing
+- [ ] Form submission with valid data
+- [ ] Form validation errors
+- [ ] Network failure scenarios
+- [ ] reCAPTCHA failure
+- [ ] Rate limiting behavior
+- [ ] Screen reader compatibility
+
+### 5. Performance
+
+- [ ] Lazy loading of reCAPTCHA script
+- [ ] Form component code splitting
+- [ ] Optimized re-renders
+- [ ] Bundle size analysis
+- [ ] Load testing with simulated users
+
+### 6. Monitoring & Analytics
+
+- [ ] Error tracking (Sentry, LogRocket)
+- [ ] reCAPTCHA score monitoring
+- [ ] Form submission analytics
+- [ ] Performance metrics
+- [ ] Error rate monitoring
+
+### 7. Documentation
+
+- [ ] Component API documentation
+- [ ] Setup instructions
+- [ ] Troubleshooting guide
+- [ ] Changelog
+- [ ] Deployment procedures
+
+### 8. Rollback Plan
+
+- [ ] Versioned API endpoints
+- [ ] Feature flags (if applicable)
+- [ ] Rollback procedure documented
+- [ ] Emergency contact information
 
 
 ## 1. 📂 Environment Configuration

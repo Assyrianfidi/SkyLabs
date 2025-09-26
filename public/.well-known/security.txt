@@ -1,0 +1,13 @@
+# Security Policy for SkyLabs
+# This file provides security researchers with information on how to report security vulnerabilities
+
+Contact: mailto:security@skylabs.dev
+Encryption: https://skylabs.dev/.well-known/pgp-key.txt
+Acknowledgments: https://skylabs.dev/security/hall-of-fame
+Policy: https://skylabs.dev/security/policy
+Hiring: https://skylabs.dev/careers
+
+# Our security address
+Preferred-Languages: en
+Canonical: https://skylabs.dev/.well-known/security.txt
+Expires: 2025-12-31T23:59:59.999Z

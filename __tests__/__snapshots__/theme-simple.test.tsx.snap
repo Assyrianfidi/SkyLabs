@@ -1,0 +1,23 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Theme > matches snapshot 1`] = `
+<div>
+  <div
+    data-testid="test-box"
+    style="color: #333333; background-color: #ffffff; padding: 16px; font-family: system-ui, sans-serif;"
+  >
+    Test Content
+  </div>
+</div>
+`;
+
+exports[`Theme matches snapshot 1`] = `
+<div>
+  <div
+    data-testid="test-box"
+    style="color: rgb(51, 51, 51); background-color: rgb(255, 255, 255); padding: 16px; font-family: system-ui, sans-serif;"
+  >
+    Test Content
+  </div>
+</div>
+`;

@@ -1,36 +1,25 @@
-import type { Express } from "express";
+import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
-import contactRouter from "./routes/contact.js";
+// Old contact router
+// import contactRouter from "./routes/contact.js";
+// New contact router with improved validation and error handling
+import contactRouter from "./routes/contact.new.js";
 import { db } from "./db/index.js";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // CORS middleware for all routes
-  app.use((_req: any, res: any, next: () => void) => {
-    const allowedOrigins = process.env.NODE_ENV === 'production'
-      ? ['https://skylabs.tech', 'https://skylabs-1.onrender.com']
-      : ['http://localhost:3001', 'http://localhost:5173'];
-    
-    const origin = _req.headers.origin;
-    if (origin && allowedOrigins.includes(origin)) {
-      res.header('Access-Control-Allow-Origin', origin);
-    }
-    
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
-    res.header('Access-Control-Allow-Credentials', 'true');
-    
-    if (_req.method === 'OPTIONS') {
-      return res.status(200).end();
-    }
-    
-    next();
+  // Health check endpoint
+  app.get('/api/health', (_req: Request, res: Response) => {
+    res.status(200).json({
+      status: 'ok',
+      timestamp: new Date().toISOString()
+    });
   });
 
-  // API routes
-  app.use("/api/contact", contactRouter);
+  // Add your routes here
+  app.use('/api/contact', contactRouter);
 
   // Get all contacts (for admin purposes)
-  app.get("/api/contacts", async (_req, res) => {
+  app.get("/api/contacts", async (_req: Request, res: Response) => {
     try {
       if (!db) {
         throw new Error('Database connection not available');
@@ -38,14 +27,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const contacts = await db.query.contacts.findMany();
       res.json(contacts);
     } catch (error) {
-      console.error("Get contacts error:", error);
-      res.status(500).json({ 
-        success: false, 
-        message: "Failed to retrieve contacts." 
-      });
+      console.error('Error fetching contacts:', error);
+      res.status(500).json({ error: 'Failed to fetch contacts' });
     }
   });
 
-  const httpServer = createServer(app);
-  return httpServer;
+  // Return the server instance
+  return createServer(app);
 }

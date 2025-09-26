@@ -1,7 +1,7 @@
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
 import * as schema from '../../shared/schema.js';
-import 'dotenv/config';
+import dbConfig from './config.js';
 import { promises as fs } from 'fs';
 import path from 'path';
 
@@ -47,24 +47,10 @@ ${taskId ? `- **Linked Task:** [${taskId}](${path.join(process.cwd(), 'TODO.md')
 
 // Database connection configuration
 const DB_CONFIG = {
+  ...dbConfig,
   maxRetries: 5,
   retryDelay: 5000, // 5 seconds
-  maxConnections: 10,
-  connectionTimeout: 10000, // 10 seconds
-  user: process.env.DB_USER || 'postgres',
-  password: process.env.DB_PASSWORD || '',
-  host: process.env.DB_HOST || 'localhost',
-  port: parseInt(process.env.DB_PORT || '5432'),
-  database: process.env.DB_NAME || 'skylabs_dev',
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
 };
-
-// Log database configuration (without password)
-console.log('📋 Database Configuration:', {
-  ...DB_CONFIG,
-  password: DB_CONFIG.password ? '***' : '(no password)',
-  ssl: DB_CONFIG.ssl ? 'enabled' : 'disabled'
-});
 
 // Get fix suggestion for common database errors
 function getFixSuggestion(error: Error): string {
@@ -246,69 +232,54 @@ export async function initializeDatabase() {
     
     return { db, pool };
     
-  } catch (error) {
-    const err = error as Error;
-    initializationError = err;
-    
+  } catch (error: unknown) {
+    const err = error instanceof Error ? error : new Error(String(error));
+    console.error('❌ Error during database initialization:', err);
     await logError(
-      err,
-      'Database Initialization Failed',
+      err as Error, 
+      'Database initialization',
       'Database',
       '🔴 Critical',
-      { 
-        error: err.message, 
-        stack: err.stack,
-        timestamp: new Date().toISOString()
-      },
-      'db_connection'
+      { timestamp: new Date().toISOString() },
+      'db_initialization_error'
     );
-    
-    console.error('❌ Failed to initialize database:', err.message);
-    throw new Error(`Database initialization failed: ${err.message}`);
+    throw err;
   }
 }
 
-// Get the database instance
-export async function getDb() {
+// Get the database pool
+export async function getPool() {
   try {
-    if (!db || !sql) {
-      console.log('🔄 Database not initialized, initializing...');
-      return await initializeDatabase();
+    if (!pool) {
+      console.log('🔄 Database pool not initialized, initializing...');
+      const result = await initializeDatabase();
+      return result.pool;
     }
-    
-    // Verify connection is still alive
-    try {
-      await sql`SELECT 1`;
-      return { db, sql };
-    } catch (error) {
-      console.warn('⚠️ Database connection lost, reinitializing...');
-      isInitialized = false;
-      return await initializeDatabase();
-    }
+    return pool;
   } catch (error) {
-    const err = error as Error;
+    const err = error instanceof Error ? error : new Error(String(error));
     console.error('❌ Failed to get database connection:', err.message);
     throw new Error(`Failed to get database connection: ${err.message}`);
   }
 }
 
 // Graceful shutdown handler
-process.on('SIGTERM', async () => {
-  console.log('🛑 Received SIGTERM. Closing database connections...');
-  if (sql) {
-    await sql.end();
-    console.log('✅ Database connections closed');
+const handleShutdown = async () => {
+  console.log('🛑 Received shutdown signal. Closing database connections...');
+  if (pool) {
+    await pool.end();
+    pool = null;
+    db = null;
+    isInitialized = false;
   }
-  process.exit(0);
+};
+
+process.on('SIGTERM', () => {
+  handleShutdown().then(() => process.exit(0));
 });
 
-process.on('SIGINT', async () => {
-  console.log('🛑 Received SIGINT. Closing database connections...');
-  if (sql) {
-    await sql.end();
-    console.log('✅ Database connections closed');
-  }
-  process.exit(0);
+process.on('SIGINT', () => {
+  handleShutdown().then(() => process.exit(0));
 });
 
 // Export the schema
